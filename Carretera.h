@@ -87,6 +87,13 @@
      */
     void arreglarCarreteras(Carretera &gs);
 
+    /*
+     * PRE: {  }
+     * POST:{  }
+     * COMPLEJIDAD:O(n²)
+     */
+    float longitudTotal();
+
 
     ~Carretera();
  };

@@ -65,29 +65,6 @@ void cargarDatos(Carretera &c, IList<nodo*> *&caminos){
 
 }
 
-
-void Algoritmo2(Carretera c, IList<nodo*> *caminos){
-  fstream flujoSalida;
-  nodo *n;
-  int i, j;
-  Carretera gs;
-  flujoSalida.open("datos.out");
-
-  cout << "---------------prim antes-------------" << endl;
-    gs.imprimirMatriz();
-
-
-  c.arreglarCarreteras(gs);
-
-
-cout << "---------------prim despues-------------" << endl;
-  gs.imprimirMatriz();
-
-
-   flujoSalida.close();
-
-}
-
 void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
 
   string k;
@@ -103,13 +80,48 @@ void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
     }
 }
 
-void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C){
+
+
+void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
+  nodo *n;
+  int i, j;
+  Carretera gs;
+  mString P;
+  mFloat C;
+  float distancia;
+
+  c.arreglarCarreteras(gs);
+
+  cout << "------------------ PRIM -----------------" << endl;
+  gs.imprimirMatriz();
+  flujoSalida << gs.longitudTotal() << endl;
+  gs.caminoMinimo(C, P);
+
+  caminos->moverInicio();
+  while(!caminos->finLista()){
+    caminos->consultar(n);
+    i = c.buscarCiudad(n->ciudadInicio);
+    j = c.buscarCiudad(n->ciudadFinal);
+
+    distancia = C[i][j]; //Si fuera 0 signifca que el grafo no es conexo y desde ese vertice no se puede llegar al destino
+
+    flujoSalida << n->ciudadInicio << " ";
+    Camino(gs,i,j,P, flujoSalida);
+    flujoSalida << n->ciudadFinal << " ";
+    flujoSalida << distancia;
+    flujoSalida << endl;
+
+    caminos->avanzar();
+
+  }
+}
+
+
+void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C, ofstream &flujoSalida){
 
   nodo *n;
   int i, j;
   float distancia = 0.0;
-  ofstream flujoSalida;
-  flujoSalida.open("datos.out");
 
   c.caminoMinimo(C, P);
 
@@ -150,9 +162,7 @@ void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C){
     caminos->avanzar();
   }
 
-  flujoSalida << "\n" ; //Linea en blanco
 
-  flujoSalida.close();
 
 
 }
@@ -161,6 +171,8 @@ void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C){
 int main(){
 
   Carretera c;
+  ofstream flujoSalida;
+  flujoSalida.open("datos.out");
   IList<nodo*> *caminos = new IList<nodo*>();
   nodo *n;
   mString P;
@@ -182,8 +194,10 @@ int main(){
 
    cout << endl;
 
-   Algoritmo1(c, caminos, P, C);
-   Algoritmo2(c, caminos);
+   Algoritmo1(c, caminos, P, C, flujoSalida);
+   flujoSalida << "\n" ; //Linea en blanco
+   Algoritmo2(c, caminos, flujoSalida);
+   flujoSalida.close();
 
   return 0;
 

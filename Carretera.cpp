@@ -150,6 +150,32 @@ void Carretera::arreglarCarreteras(Carretera &gs){
 
 }
 
+float Carretera::longitudTotal(){
+
+    float distancia = 0;
+    bool saltar = false;
+    int i = 0;
+    int j = 0;
+
+    while (i < numVertices) {
+      while (!saltar) {
+        if(i == j)
+          saltar = true;
+        else{
+          if(mAdyacencia[i][j] > 0)
+            distancia += mAdyacencia[i][j];
+          j++;
+        }
+      }
+      i++;
+      j = 0;
+      saltar = false;
+    }
+
+    return distancia;
+
+}
+
 
 
 
