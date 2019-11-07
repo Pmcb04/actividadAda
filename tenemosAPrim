@@ -1,0 +1,11 @@
+Cogemos el primer vertice por ejemplo y la ponemos en visitados (vector de bools)
+
+vamos recooriendo las columnas excluyendo las columnas de los vertices visitados (en este primer ejemplo el vertice 0 CC)
+
+nos daria como resultado en la j el nuevo vertice que hay que poner en visitados
+
+ahora volvemos a recorrer las filas de los visitados comparando las columnas onteniendo el menor de esa columna (siempre sin contar a los ya visitados en las columnas)
+ 
+para las proximas columnas ir comparando con los menores obtenidos en las anteriores columnas.
+
+Una vez obtenido el menor de los menores cada vez que se recorren los vistados, copiar en la matriz de adyacencia del nuevo grafo, guardando las posiciones i,j de el menor de los menores para una vez obtenido copiarlo al arbol de recubrimiento de coste minimo. 
