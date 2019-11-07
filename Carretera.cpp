@@ -109,7 +109,7 @@ void Carretera::caminoMinimo(mFloat &C, mString &P){
 void Carretera::arreglarCarreteras(Carretera &gs){
 
     bool visitados[numVertices];
-    int cont = 0;
+    int cont = 1;
     int x = 0;
     int y = 0;
     float menor;
@@ -124,7 +124,7 @@ void Carretera::arreglarCarreteras(Carretera &gs){
 
     while (cont < numVertices) {
 
-        menor = 9999999;
+        menor = 999999999999999999;
 
         for(int i = 0; i < numVertices; i++){
           if(visitados[i]){
