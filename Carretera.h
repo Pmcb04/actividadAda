@@ -48,21 +48,21 @@
     /*
   	 * PRE: {  }
   	 * POST:{  }
-  	 * COMPLEJIDAD:O(1)
+  	 * COMPLEJIDAD:O(n)
   	 */
     void setDistancia(string v1, string v2, float distancia);
 
     /*
      * PRE: {  }
      * POST:{  }
-     * COMPLEJIDAD:O()
+     * COMPLEJIDAD:O(n)
      */
     int buscarCiudad(string ciudad);
 
     /*
      * PRE: {  }
      * POST:{  }
-     * COMPLEJIDAD:O()
+     * COMPLEJIDAD:O(1)
      */
     string obtenerCiudad(int indice);
 
@@ -76,21 +76,29 @@
     /*
      * PRE: {  }
      * POST:{  }
-     * COMPLEJIDAD:O(n²)
+     * COMPLEJIDAD:O(n)
      */
-    void caminoMinimo(mFloat &C, mString &P);
+    void imprimirVector();
 
     /*
      * PRE: {  }
      * POST:{  }
-     * COMPLEJIDAD:O(n²)
+     * COMPLEJIDAD:O(n³)
+     */
+    void caminoMinimo(mFloat &C, mString &P);
+
+
+    /*
+     * PRE: {  }
+     * POST:{  }
+     * COMPLEJIDAD:O(n³)
      */
     void arreglarCarreteras(Carretera &gs);
 
     /*
      * PRE: {  }
      * POST:{  }
-     * COMPLEJIDAD:O(n²)
+     * COMPLEJIDAD:O(n)
      */
     float longitudTotal();
 

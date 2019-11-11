@@ -30,6 +30,8 @@ void Carretera::setCiudad(string v){
 
 }
 
+
+
 void Carretera::setDistancia(string v1, string v2, float distancia){
 
       int i = buscarCiudad(v1);
@@ -38,6 +40,8 @@ void Carretera::setDistancia(string v1, string v2, float distancia){
       mAdyacencia[j][i] = distancia;
 
 }
+
+
 
 int Carretera::buscarCiudad(string ciudad){
 
@@ -60,13 +64,9 @@ string Carretera::obtenerCiudad(int indice){
     return cVertices[indice];
 }
 
+
+
 void Carretera::imprimirMatriz(){
-
-  for (int i = 0; i < numVertices; i++) {
-        cout << cVertices[i] << " " << i << endl;
-  }
-
-  cout << endl;
 
   for(int i = 0; i < numVertices; i++){
     for(int j = 0; j < numVertices; j++){
@@ -75,9 +75,22 @@ void Carretera::imprimirMatriz(){
     cout << endl;
   }
 
-  cout << "**********        " << mAdyacencia[2][4] << endl;
+}
+
+
+
+void Carretera::imprimirVector(){
+
+  for (int i = 0; i < numVertices; i++) {
+        cout << cVertices[i] << " " << i << endl;
+  }
+
+  cout << endl;
+
 
 }
+
+
 
 void Carretera::caminoMinimo(mFloat &C, mString &P){
 
@@ -106,12 +119,11 @@ void Carretera::caminoMinimo(mFloat &C, mString &P){
 }
 
 
+
 void Carretera::arreglarCarreteras(Carretera &gs){
 
-    bool visitados[numVertices];
-    int cont = 1;
-    int x = 0;
-    int y = 0;
+    bool visitados[numVertices]; bool enc = false;
+    int cont = 1; int x = 0; int y = 0; int numFila;
     float menor;
 
     for (int i = 0; i < numVertices; i++){
@@ -119,12 +131,11 @@ void Carretera::arreglarCarreteras(Carretera &gs){
         gs.setCiudad(obtenerCiudad(i));
     }
 
-
     visitados[0] = true;
 
     while (cont < numVertices) {
 
-        menor = 999999999999999999;
+        menor = 10000000.0;
 
         for(int i = 0; i < numVertices; i++){
           if(visitados[i]){
@@ -175,8 +186,6 @@ float Carretera::longitudTotal(){
     return distancia;
 
 }
-
-
 
 
 Carretera::~Carretera(){

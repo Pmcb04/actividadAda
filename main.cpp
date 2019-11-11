@@ -1,11 +1,10 @@
-
-//============================================================================
-// Name        : Carreteras.cpp
-// Author      : Rubén Marín Lucas & Pedro Miguel Carmona Broncano
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+ * main.cpp
+ *
+ *  Created on: 31/10/2019
+ *      Author: Pedro Miguel Carmona Broncano
+ *              Rubén Marín Lucas
+ */
 
 #include <fstream>
 #include "IList.h"
@@ -17,10 +16,16 @@ struct nodo{
 };
 
 
+
+/*
+ * PRE: {  }
+ * POST:{  }
+ * COMPLEJIDAD:O()
+ */
 void cargarDatos(Carretera &c, IList<nodo*> *&caminos){
 
    fstream flujoEntrada;
-   int numVertices, numAristas, numCaminos; int i = 0;
+   int numVertices, numAristas, numCaminos, comprobar; int i = 0;
    string linea; string campo[3];
    nodo *n;
 
@@ -28,43 +33,75 @@ void cargarDatos(Carretera &c, IList<nodo*> *&caminos){
    getline(flujoEntrada, linea);
    numVertices = atoi(linea.c_str());
 
-     for(int i = 0; i < numVertices; i++){
-          getline(flujoEntrada, linea);
-          c.setCiudad(linea);
-     }
+   if(numVertices > 1 && numVertices < 21){ //control del numero de cidudades
 
-    getline(flujoEntrada, linea); //salto linea
-    getline(flujoEntrada, linea);
-    numAristas = atoi(linea.c_str());
+       for(int i = 0; i < numVertices; i++){
+            getline(flujoEntrada, linea);
+            c.setCiudad(linea);
+       }
 
-     for(int i = 0; i < numAristas; i++){
-          getline(flujoEntrada, campo[0], ' ');//primer vertice
-          getline(flujoEntrada, campo[1], ' ');//segundo vertice
-          getline(flujoEntrada, campo[2], '\n');//etiqueta
-          c.setDistancia(campo[0], campo[1], atof(campo[2].c_str()));
-     }
+      getline(flujoEntrada, linea); //salto linea
+      getline(flujoEntrada, linea);
+      numAristas = atoi(linea.c_str());
 
-     getline(flujoEntrada, linea); //salto linea
-     getline(flujoEntrada, linea);
-     numCaminos = atoi(linea.c_str());
+      comprobar = numVertices * numVertices;
+
+      if(numAristas < comprobar){
+
+         for(int i = 0; i < numAristas; i++){
+              getline(flujoEntrada, campo[0], ' ');//primer vertice
+              getline(flujoEntrada, campo[1], ' ');//segundo vertice
+              getline(flujoEntrada, campo[2], '\n');//etiqueta
+              c.setDistancia(campo[0], campo[1], atof(campo[2].c_str()));
+         }
+
+         getline(flujoEntrada, linea); //salto linea
+         getline(flujoEntrada, linea);
+         numCaminos = atoi(linea.c_str());
+
+        if(numCaminos < comprobar){
+
+           caminos->moverInicio();
+           while(i < numCaminos){
+             n = new nodo;
+             getline(flujoEntrada, linea, ' ');
+             n->ciudadInicio = linea;
+             getline(flujoEntrada, linea, '\n');
+             n->ciudadFinal = linea;
+             caminos->insertar(n);
+             caminos->avanzar();
+             i++;
+           }
+
+       }else{
+
+         cout << "ERROR:  -El número sobre preguntas de caminos es incorrecto" << endl;
+
+       }
 
 
-     caminos->moverInicio();
-     while(i < numCaminos){
-       n = new nodo;
-       getline(flujoEntrada, linea, ' ');
-       n->ciudadInicio = linea;
-       getline(flujoEntrada, linea, '\n');
-       n->ciudadFinal = linea;
-       caminos->insertar(n);
-       caminos->avanzar();
-       i++;
-     }
+      }else{
+
+        cout << "ERROR:  -El número de carreteras es incorrecto" << endl;
+
+      }
+
+  }else{
+
+    cout << "ERROR:  -El número de ciudades es incorrecto" << endl;
+
+  }
 
      flujoEntrada.close();
 
 }
 
+
+/*
+ * PRE: {  }
+ * POST:{  }
+ * COMPLEJIDAD:O()
+ */
 void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
 
   string k;
@@ -81,7 +118,11 @@ void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
 }
 
 
-
+/*
+ * PRE: {  }
+ * POST:{  }
+ * COMPLEJIDAD:O()
+ */
 void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
   nodo *n;
   int i, j;
@@ -92,8 +133,6 @@ void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
 
   c.arreglarCarreteras(gs);
 
-  cout << "------------------ PRIM -----------------" << endl;
-  gs.imprimirMatriz();
   flujoSalida << gs.longitudTotal() << endl;
   gs.caminoMinimo(C, P);
 
@@ -116,7 +155,11 @@ void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
   }
 }
 
-
+/*
+ * PRE: {  }
+ * POST:{  }
+ * COMPLEJIDAD:O()
+ */
 void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C, ofstream &flujoSalida){
 
   nodo *n;
@@ -124,26 +167,6 @@ void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C, ofstr
   float distancia = 0.0;
 
   c.caminoMinimo(C, P);
-
-  for (size_t i = 0; i < 7; i++) {
-    for (size_t j = 0; j < 7; j++) {
-
-       cout << P[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  cout << endl;
-
-  for (size_t i = 0; i < 7; i++) {
-    for (size_t j = 0; j < 7; j++) {
-
-       cout << C[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  cout << endl;;
 
   caminos->moverInicio();
   while(!caminos->finLista()){
@@ -180,24 +203,19 @@ int main(){
 
   cargarDatos(c, caminos);
 
-  cout << "--------------- MATRIZ -------------------" << endl;
-  c.imprimirMatriz();
-  //llamadaFuncion(caminos);
+  Algoritmo1(c, caminos, P, C, flujoSalida);
+  flujoSalida << "\n" ; //Linea en blanco
+  Algoritmo2(c, caminos, flujoSalida);
+  flujoSalida.close();
 
-  cout << "--------------- CAMINOS -------------------" << endl;
-    caminos->moverInicio();
-    while(!caminos->finLista()){
-     caminos->consultar(n);
-     cout << n->ciudadInicio << "     " << n->ciudadFinal << endl;
-     caminos->avanzar();
-   }
-
-   cout << endl;
-
-   Algoritmo1(c, caminos, P, C, flujoSalida);
-   flujoSalida << "\n" ; //Linea en blanco
-   Algoritmo2(c, caminos, flujoSalida);
-   flujoSalida.close();
+//destructor de la lista
+  caminos->moverInicio();
+  while(!caminos->finLista()){
+    caminos->consultar(n);
+    delete n;
+    caminos->borrar();
+  }
+  delete caminos;
 
   return 0;
 
