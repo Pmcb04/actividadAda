@@ -28,54 +28,79 @@
    vString cVertices;
    mFloat mAdyacencia;
    int numVertices;
-   int numAristas;
 
   public:
     /*
   	 * PRE: {  }
-  	 * POST:{  }
+  	 * POST:{ Constructor por defecto: Inicia los valores de -cVertices- a " "
+     *        y los valores de -mAdyacencia- a 0 en la diagonal y a -1 en el
+     *        resto de casillas }
   	 * COMPLEJIDAD:O(n²)
   	 */
     Carretera();
 
     /*
-  	 * PRE: {  }
-  	 * POST:{  }
+  	 * PRE: { La variable "v" debe estar inicializada correctamente }
+  	 * POST:{ Inserta el contenido de la variable "v" en el vector -cVertices-
+     *        en la posicion indicada por el valor actual de -numVertices- }
   	 * COMPLEJIDAD:O(1)
   	 */
     void setCiudad(string v);
 
     /*
-  	 * PRE: {  }
-  	 * POST:{  }
+     * PRE: { La variable "ciudad" debe estar inicializada correctamente }
+     * POST:{ Retorna string con valor el nombre de la ciudad qeu ocupa la
+     *        posicion indicada por la variable "indice" en -cVertices- }
+     * COMPLEJIDAD:O(1)
+     */
+    string getCiudad(int indice);
+
+    /*
+  	 * PRE: { Las distintas variables "v1", "v2" y "distancia" deberian
+     *        estar correctamente inicializadas, ademas el valor de la variable
+     *        "distancia" > 0}
+  	 * POST:{ Halla la posicion que ocupan  las aristas de las ciudades por su
+     *        nombre recogido en "v1" y "v2" y en esas posiciones de -mAdyacencia-
+     *        inserta la "distancia" }
   	 * COMPLEJIDAD:O(n)
   	 */
     void setDistancia(string v1, string v2, float distancia);
 
     /*
-     * PRE: {  }
-     * POST:{  }
+     * PRE: { Las distintas variables "v1", "v2" deberian
+     *        estar correctamente inicializadas }
+     * POST:{ Devuelve la distancia entre la ciudad cuyo nombre está almacenado en "v1"
+     *        y la ciudad con nombre el valor de "v2" }
+     * COMPLEJIDAD:O(n)
+     */
+    float getDistancia(string v1, string v2);
+
+    /*
+     * PRE: { }
+     * POST:{ Devuelve el contenido de -numVertices-}
+     * COMPLEJIDAD:O(1)
+     */
+    int getNumVertices();
+
+    /*
+     * PRE: { La variable "ciudad" debe estar inicializada correctamente }
+     * POST:{ Retorna int con valor de la posicion que ocupa la ciduad recogida
+     *        por su nombre en la variable "ciudad" en -cVertices-, en caso de que
+     *        no exista la ciudad devuelve un -1 }
      * COMPLEJIDAD:O(n)
      */
     int buscarCiudad(string ciudad);
 
     /*
      * PRE: {  }
-     * POST:{  }
-     * COMPLEJIDAD:O(1)
-     */
-    string obtenerCiudad(int indice);
-
-    /*
-     * PRE: {  }
-     * POST:{  }
+     * POST:{ Imprime por pantalla los elementos de -mAdyacencia- }
      * COMPLEJIDAD:O(n²)
      */
     void imprimirMatriz();
 
     /*
      * PRE: {  }
-     * POST:{  }
+     * POST:{ Imprime por pantalla los elementos de -cVertices- }
      * COMPLEJIDAD:O(n)
      */
     void imprimirVector();

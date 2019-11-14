@@ -15,19 +15,25 @@
 se comprueba , que todos los parametros se inician correctamente*/
 void pruebaConstructor();
 
-/*Se crea una via por constructor parametrizado y
-se comprueba, que todos los parametros se inician correctamente */
-void pruebasParametrizadoV();
-
-/*Se crea una via por constructor por defecto y
-se introducen los parametros por los metodos set y se comprueban de que
-todos los parametros se inician correctamente*/
+/*Se crea un sistema de carreteras(Carretera) en el que se insertan distintas ciudades
+y las distancias entre algunas de ellas y a partir de ahi se comprueban los diferentes
+métodos de set y get*/
 void pruebasSetGetV();
 
-//Distintos algoritmos a probar
+/*Se crea un sistema de carreteras(Carretera) en el que se insertan distintas ciudades
+y las distancias entre algunas de ellas. A partir de ahi se comprueba la funcionalidad del
+algoritmo de Floyd(caminoMinimo)*/
+void pruebasCaminoMinimo();
+
+/*Se crea un sistema de carreteras(Carretera) en el que se insertan distintas ciudades
+y las distancias entre algunas de ellas. A partir de ahi se comprueba la funcionalidad del
+algoritmo de Prim(arreglarCarreteras)*/
+void pruebasArreglarCarreteras();
+
+//prueba longitudtotal()
 
 // llamada a todos los modulos de prueba de esta clase
-void pruebasVias();
+void pruebasCarreteras();
 
 
 #endif /* PRUEBACARRETERA_H_ */

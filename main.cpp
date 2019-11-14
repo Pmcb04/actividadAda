@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include "IList.h"
+#include "pruebaCarretera.h"
 #include "Carretera.h"
 
 struct nodo{
@@ -193,13 +194,13 @@ void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C, ofstr
 
 int main(){
 
+  nodo *n;
+  mFloat C;
+  mString P;
   Carretera c;
   ofstream flujoSalida;
   flujoSalida.open("datos.out");
   IList<nodo*> *caminos = new IList<nodo*>();
-  nodo *n;
-  mString P;
-  mFloat C;
 
   cargarDatos(c, caminos);
 
@@ -208,7 +209,7 @@ int main(){
   Algoritmo2(c, caminos, flujoSalida);
   flujoSalida.close();
 
-//destructor de la lista
+//destruimos la lista
   caminos->moverInicio();
   while(!caminos->finLista()){
     caminos->consultar(n);
@@ -216,6 +217,9 @@ int main(){
     caminos->borrar();
   }
   delete caminos;
+
+
+  pruebasCarreteras();
 
   return 0;
 

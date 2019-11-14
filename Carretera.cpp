@@ -11,7 +11,6 @@
 Carretera::Carretera(){
 
   numVertices = 0;
-  numAristas = 0;
 
   for(int i = 0; i < 20; i++){
         cVertices[i] = " ";
@@ -30,6 +29,14 @@ void Carretera::setCiudad(string v){
 
 }
 
+string Carretera::getCiudad(int indice){
+    return cVertices[indice];
+}
+
+
+int Carretera:: getNumVertices(){
+  return numVertices;
+}
 
 
 void Carretera::setDistancia(string v1, string v2, float distancia){
@@ -41,11 +48,15 @@ void Carretera::setDistancia(string v1, string v2, float distancia){
 
 }
 
+float Carretera::getDistancia(string v1, string v2){
+    return mAdyacencia[buscarCiudad(v1)][buscarCiudad(v2)];
+}
+
 
 
 int Carretera::buscarCiudad(string ciudad){
 
-    int i = 0;
+    int i = 0; int posicion = -1;
     bool enc = false;
 
     while(i < numVertices && !enc){
@@ -56,13 +67,11 @@ int Carretera::buscarCiudad(string ciudad){
       }
     }
 
-    return i;
+    if(enc) posicion = i;
 
+    return posicion;
 }
 
-string Carretera::obtenerCiudad(int indice){
-    return cVertices[indice];
-}
 
 
 
@@ -98,7 +107,7 @@ void Carretera::caminoMinimo(mFloat &C, mString &P){
 
   for(int i = 0; i < numVertices; i++){
     for(int j = 0; j < numVertices; j++){
-      if(mAdyacencia[i][j] < 0) C[i][j] = 10000000.0;
+      if(mAdyacencia[i][j] < 0) C[i][j] = 10000000.0; //Se considera que no existen carreteras de mas de 10000000.0 km
       else C[i][j] = mAdyacencia[i][j];
         P[i][j] = "null";
     }
@@ -110,7 +119,7 @@ void Carretera::caminoMinimo(mFloat &C, mString &P){
           suma = C[i][k] + C[k][j];
           if(suma < C[i][j]){
             C[i][j] = suma;
-            P[i][j] = obtenerCiudad(k);
+            P[i][j] = getCiudad(k);
           }
       }
     }
@@ -123,19 +132,19 @@ void Carretera::caminoMinimo(mFloat &C, mString &P){
 void Carretera::arreglarCarreteras(Carretera &gs){
 
     bool visitados[numVertices]; bool enc = false;
-    int cont = 1; int x = 0; int y = 0; int numFila;
+    int cont = 1; int x = 0; int y = 0;
     float menor;
 
     for (int i = 0; i < numVertices; i++){
         visitados[i] = false;
-        gs.setCiudad(obtenerCiudad(i));
+        gs.setCiudad(getCiudad(i));
     }
 
     visitados[0] = true;
 
     while (cont < numVertices) {
 
-        menor = 10000000.0;
+        menor = 10000000.0;//Se considera que no existen carreteras de mas de 10000000.0 km
 
         for(int i = 0; i < numVertices; i++){
           if(visitados[i]){
@@ -151,7 +160,7 @@ void Carretera::arreglarCarreteras(Carretera &gs){
           }
         }
 
-      gs.setDistancia(obtenerCiudad(x), obtenerCiudad(y), menor);
+      gs.setDistancia(getCiudad(x), getCiudad(y), menor);
       visitados[y] = true;
       cont++;
 
@@ -189,5 +198,7 @@ float Carretera::longitudTotal(){
 
 
 Carretera::~Carretera(){
+
+
 
 }
