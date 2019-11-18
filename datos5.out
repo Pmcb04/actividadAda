@@ -1,0 +1,18 @@
+A B 10
+A B C 20
+A D 22
+A D E 32
+A B C F 30
+A D G 32
+A D G H 42
+A D G H I 52
+
+80
+A B 10
+A B C 20
+A B C F E D 50
+A B C F E 40
+A B C F 30
+A B C F E D G 60
+A B C F E D G H 70
+A B C F E D G H I 80

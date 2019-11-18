@@ -30,9 +30,12 @@ y las distancias entre algunas de ellas. A partir de ahi se comprueba la funcion
 algoritmo de Prim(arreglarCarreteras)*/
 void pruebasArreglarCarreteras();
 
-//prueba longitudtotal()
+/*Se crea un sistema de carreteras(Carretera) en el que se insertan distintas ciudades
+y las distancias entre algunas de ellas. Despues se aplica  Prim para conseguir el camino
+minimo y evaluamos si esta longitud es correcta o no*/
+void pruebasLongitudTotal();
 
-// llamada a todos los modulos de prueba de esta clase
+// llamada a todos los metodos de prueba de esta clase
 void pruebasCarreteras();
 
 

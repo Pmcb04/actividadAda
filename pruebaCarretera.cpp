@@ -18,7 +18,7 @@ void pruebasCarreteras(){
       pruebasSetGetV();
       pruebasCaminoMinimo();
       pruebasArreglarCarreteras();
-
+      pruebasLongitudTotal();
 }
 
 
@@ -100,6 +100,10 @@ void pruebasCaminoMinimo(){
   mFloat C;
   mString P;
 
+  // metemos el resultado en la matriz C esperada (Ce) y en la matriz P esperada (Pe)
+  mFloat Ce;
+  mString Pe;
+
   // insertamos los vertices en Carretera c
   c.setCiudad("Madrid");
   c.setCiudad("Barcelona");
@@ -118,6 +122,80 @@ void pruebasCaminoMinimo(){
   // realizamos Floyd para nuestro grafo
   c.caminoMinimo(C, P);
 
+  // rellenamos las matrices esperadas para
+  // posteriormente mostrarlas y comparar con la resultante
+
+  Ce[0][0] = 0;
+  Ce[0][1] = 620.96;
+  Ce[0][2] = 973.04;
+  Ce[0][3] = 455.32;
+  Ce[0][4] = 530.3;
+
+  Ce[1][0] = 620.96;
+  Ce[1][1] = 0;
+  Ce[1][2] = 352.08;
+  Ce[1][3] = 709.54;
+  Ce[1][4] = 971.88;
+
+  Ce[2][0] = 973.04;
+  Ce[2][1] = 352.08;
+  Ce[2][2] = 0;
+  Ce[2][3] = 1061.62;
+  Ce[2][4] = 619.8;
+
+  Ce[3][0] = 455.32;
+  Ce[3][1] = 709.54;
+  Ce[3][2] = 1061.62;
+  Ce[3][3] = 0;
+  Ce[3][4] = 985.62;
+
+  Ce[4][0] = 530.3;
+  Ce[4][1] = 971.88;
+  Ce[4][2] = 619.8;
+  Ce[4][3] = 985.62;
+  Ce[4][4] = 0;
+
+  Pe[0][0] = "null";
+  Pe[0][1] = "null";
+  Pe[0][2] = "Barcelona";
+  Pe[0][3] = "null";
+  Pe[0][4] = "null";
+
+  Pe[1][0] = "null";
+  Pe[1][1] = "null";
+  Pe[1][2] = "null";
+  Pe[1][3] = "null";
+  Pe[1][4] = "Valecia";
+
+  Pe[2][0] = "Barcelona";
+  Pe[2][1] = "null";
+  Pe[2][2] = "null";
+  Pe[2][3] = "Barcelona";
+  Pe[2][4] = "null";
+
+  Pe[3][0] = "null";
+  Pe[3][1] = "null";
+  Pe[3][2] = "Barcelona";
+  Pe[3][3] = "null";
+  Pe[3][4] = "Madrid";
+
+  Pe[4][0] = "null";
+  Pe[4][1] = "Valencia";
+  Pe[4][2] = "null";
+  Pe[4][3] = "Madrid";
+  Pe[4][4] = "null";
+
+  cout << "Matriz esperada C" << endl;
+  for (int i = 0; i < c.getNumVertices(); i++) {
+    for (int j = 0; j < c.getNumVertices(); j++) {
+        cout << Ce[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  cout << endl << endl;
+
+  cout << "Matriz resultante C" << endl;
   for (int i = 0; i < c.getNumVertices(); i++) {
     for (int j = 0; j < c.getNumVertices(); j++) {
         cout << C[i][j] << " ";
@@ -127,6 +205,17 @@ void pruebasCaminoMinimo(){
 
   cout << endl << endl;
 
+  cout << "Matriz esperada de P" << endl;
+  for (int i = 0; i < c.getNumVertices(); i++) {
+    for (int j = 0; j < c.getNumVertices(); j++) {
+        cout << Pe[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  cout << endl << endl;
+
+  cout << "Matriz resultante P" << endl;
   for (int i = 0; i < c.getNumVertices(); i++) {
     for (int j = 0; j < c.getNumVertices(); j++) {
         cout << P[i][j] << " ";
@@ -136,7 +225,6 @@ void pruebasCaminoMinimo(){
 
   cout << "--------------------------- FIN PRUEBA CAMINO MINIMO ---------------------------" << endl;
 
-//HAY QUE COMENTAR Y PONER COMO QUEDAN LAS MATRICES
 
 }
 
@@ -166,8 +254,61 @@ void pruebasArreglarCarreteras(){
   c.arreglarCarreteras(cn);
 
   // imprimimos la matriz del nuevo grafo para ver el arbol de coste minimo
+  cout << "Matriz resultante" << endl;
   cn.imprimirMatriz();
 
+  cout << endl << endl;
+
+  // metemos los resultados esperados en otro grafo
+  Carretera resultado;
+
+  // insertamos los vertices en Carretera resultado
+  resultado.setCiudad("Madrid");
+  resultado.setCiudad("Barcelona");
+  resultado.setCiudad("Valencia");
+  resultado.setCiudad("Santander");
+  resultado.setCiudad("Malaga");
+
+
+  resultado.setDistancia("Madrid", "Santander", 455.32);
+  resultado.setDistancia("Madrid", "Malaga", 530.3);
+  resultado.setDistancia("Malaga", "Valencia", 619.8);
+  resultado.setDistancia("Valencia", "Barcelona", 352.08);
+
+  // imprimimos la matriz de adyacencia que contiene el resultado
+  //esperado para comprobar si se ha realizado bien el procedimiento
+  cout << "Matriz esperada" << endl;
+  resultado.imprimirMatriz();
+
   cout << "--------------------------- FIN PRUEBA ARREGLAR CARRETERAS ---------------------------" << endl;
-//HABRA QUE PONER ALGUNA MATRIZ XD
+}
+
+void pruebasLongitudTotal(){
+
+  cout << "--------------------------- INICIO PRUEBA LONGITUD TOTAL ---------------------------" << endl;
+
+  Carretera c, cs;
+
+  // insertamos los vertices en Carretera c
+  c.setCiudad("Madrid");
+  c.setCiudad("Barcelona");
+  c.setCiudad("Valencia");
+  c.setCiudad("Santander");
+  c.setCiudad("Malaga");
+
+  // introducimos las distancias (las aristas) entre las ciudades (los vertices)
+  c.setDistancia("Madrid", "Barcelona", 620.96);
+  c.setDistancia("Barcelona", "Valencia", 352.08);
+  c.setDistancia("Santander", "Madrid", 455.32);
+  c.setDistancia("Santander", "Barcelona", 709.54);
+  c.setDistancia("Madrid", "Malaga", 530.3 );
+  c.setDistancia("Malaga", "Valencia", 619.8);
+
+  // realizamos Floyd para nuestro grafo
+  c.arreglarCarreteras(cs);
+
+  if(cs.longitudTotal() != 1957.5) cout << "ERROR en longitud total" << endl;
+
+  cout << "--------------------------- FIN PRUEBA LONGITUD TOTAL ---------------------------" << endl;
+
 }

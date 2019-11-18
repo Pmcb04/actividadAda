@@ -106,8 +106,13 @@
     void imprimirVector();
 
     /*
-     * PRE: {  }
-     * POST:{  }
+     * PRE: { }
+     * POST:{ A partir de la matriz de adyacencia halla dos matrices en las que quedan reflejados
+     *        los caminos minimos de cualquier ciudad a cualquier otra:
+     *        - En la matriz "P" se representa null en caso de que el camino sea directo,
+     *          si hay nombre de alguna ciudad significa que tienes que pasar por esa ciudad para
+     *          llegar al destino
+     *        -En la matriz "C" se representan las distancias entre las ciudades }
      * COMPLEJIDAD:O(n³)
      */
     void caminoMinimo(mFloat &C, mString &P);
@@ -115,14 +120,18 @@
 
     /*
      * PRE: {  }
-     * POST:{  }
+     * POST:{ Halla el arbol de recubrimiento de coste minimo del sistema de carreteras
+     *        existente. Este nuevo sistema de carreteras, qeu serán las que se tienen
+     *        que arreglar quedarán insertadas en nuestro nuevo grafo "gs"}
      * COMPLEJIDAD:O(n³)
      */
     void arreglarCarreteras(Carretera &gs);
 
     /*
      * PRE: {  }
-     * POST:{  }
+     * POST:{ Cuenta la distancia minima que hay en el grafo, recorriendo su matriz de
+     *        adyacencia y acumulando los valores de esta, solo hasta la mitad, por que
+     *        de no ser así saldría el doblo de longitud que deberia salir }
      * COMPLEJIDAD:O(n)
      */
     float longitudTotal();

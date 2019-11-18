@@ -16,21 +16,23 @@ struct nodo{
     string ciudadFinal;
 };
 
+string archivo;
 
 
-/*
- * PRE: {  }
- * POST:{  }
- * COMPLEJIDAD:O()
- */
 void cargarDatos(Carretera &c, IList<nodo*> *&caminos){
+
+
+  do {
+    cout << "Inserte archivo a evaluar (datosX) X < 6" << endl;
+    cin >> archivo;
+  } while(archivo[5] >= '6');
 
    fstream flujoEntrada;
    int numVertices, numAristas, numCaminos, comprobar; int i = 0;
    string linea; string campo[3];
    nodo *n;
 
-   flujoEntrada.open("datos.in");
+   flujoEntrada.open(archivo + ".in");
    getline(flujoEntrada, linea);
    numVertices = atoi(linea.c_str());
 
@@ -98,11 +100,6 @@ void cargarDatos(Carretera &c, IList<nodo*> *&caminos){
 }
 
 
-/*
- * PRE: {  }
- * POST:{  }
- * COMPLEJIDAD:O()
- */
 void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
 
   string k;
@@ -118,12 +115,6 @@ void Camino(Carretera c, int i, int j, mString &P, ofstream &flujoSalida){
     }
 }
 
-
-/*
- * PRE: {  }
- * POST:{  }
- * COMPLEJIDAD:O()
- */
 void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
   nodo *n;
   int i, j;
@@ -156,11 +147,6 @@ void Algoritmo2(Carretera c, IList<nodo*> *caminos, ofstream &flujoSalida){
   }
 }
 
-/*
- * PRE: {  }
- * POST:{  }
- * COMPLEJIDAD:O()
- */
 void Algoritmo1(Carretera c, IList<nodo*> *caminos, mString &P, mFloat &C, ofstream &flujoSalida){
 
   nodo *n;
@@ -198,11 +184,13 @@ int main(){
   mFloat C;
   mString P;
   Carretera c;
-  ofstream flujoSalida;
-  flujoSalida.open("datos.out");
   IList<nodo*> *caminos = new IList<nodo*>();
 
+
   cargarDatos(c, caminos);
+
+  ofstream flujoSalida;
+  flujoSalida.open(archivo + ".out");
 
   Algoritmo1(c, caminos, P, C, flujoSalida);
   flujoSalida << "\n" ; //Linea en blanco
@@ -217,6 +205,8 @@ int main(){
     caminos->borrar();
   }
   delete caminos;
+
+  cout << "¡¡¡ " << archivo << ".out generado !!!" << endl;
 
 
   pruebasCarreteras();
